@@ -1,0 +1,34 @@
+{
+  "name": "toctoc",
+  "version": "0.0.1",
+  "description": "Generates and maintain a table of contents of your README.md.",
+  "main": "index.js",
+  "scripts": {
+    "update-toc": "node ./bin/toctoc README.md",
+    "prepublish": "npm run update-toc",
+    "test": "exit 0"
+  },
+  "bin": {
+    "toctoc": "bin/toctoc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n1k0/toctoc.git"
+  },
+  "keywords": [
+    "toc",
+    "markdown",
+    "github",
+    "readme"
+  ],
+  "author": "Nicolas Perriault <nicolas@perriault.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/n1k0/toctoc/issues"
+  },
+  "homepage": "https://github.com/n1k0/toctoc#readme",
+  "dependencies": {
+    "marked": "^0.3.5",
+    "yargs": "^4.3.1"
+  }
+}
