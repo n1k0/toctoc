@@ -1,10 +1,10 @@
 {
   "name": "toctoc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generates and maintain a table of contents of your README.md.",
   "main": "index.js",
   "scripts": {
-    "update-toc": "node ./bin/toctoc README.md",
+    "update-toc": "node ./bin/toctoc -w README.md",
     "prepublish": "npm run update-toc",
     "test": "exit 0"
   },
