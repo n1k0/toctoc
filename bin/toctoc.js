@@ -9,7 +9,10 @@ function slugify(str) {
     // strip tags if any
     .replace(/(<([^>]+)>)/g, "")
     // generate a github compatible anchor slug
-    .replace(/[^\w]+/g, '-');
+    .replace(/[^\w]+/g, "-")
+    // remove trailing escaped characters
+    .replace(/^-/, "")
+    .replace(/-$/, "");
 }
 
 function generateToc(source, title) {
