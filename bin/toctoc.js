@@ -4,6 +4,14 @@ var yargs = require("yargs");
 var fs = require("fs");
 var marked = require("marked");
 
+function slugify(str) {
+  return str.toLowerCase()
+    // strip tags if any
+    .replace(/(<([^>]+)>)/g, "")
+    // generate a github compatible anchor slug
+    .replace(/[^\w]+/g, '-');
+}
+
 function generateToc(source, title) {
   var toc = "";
   var renderer = new marked.Renderer();
@@ -14,7 +22,7 @@ function generateToc(source, title) {
   }
   renderer.heading = function (text, level) {
     if (text === title) return;
-    var anchor = text.toLowerCase().replace(/[^\w]+/g, '-');
+    var anchor = slugify(text);
     addToToc(text, anchor, level);
     return "";
   }
