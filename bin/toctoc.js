@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var yargs = require("yargs");
 var fs = require("fs");
 var marked = require("marked");
