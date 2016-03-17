@@ -4,10 +4,12 @@ var yargs = require("yargs");
 var fs = require("fs");
 var marked = require("marked");
 
+function removeTags(str) {
+  return str.replace(/(<([^>]+)>)/g, "");
+}
+
 function slugify(str) {
-  return str.toLowerCase()
-    // strip tags if any
-    .replace(/(<([^>]+)>)/g, "")
+  return removeTags(str.toLowerCase())
     // generate a github compatible anchor slug
     .replace(/[^\w]+/g, "-")
     // remove trailing escaped characters
@@ -25,8 +27,8 @@ function generateToc(source, title, maxDepth) {
   }
   renderer.heading = function (text, level) {
     if (text === title) return;
-    var anchor = slugify(text);
-    addToToc(text, anchor, level);
+    console.log(removeTags(text), slugify(text));
+    addToToc(removeTags(text), slugify(text), level);
     return "";
   }
   marked(source, {renderer});
