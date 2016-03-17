@@ -15,11 +15,11 @@ function slugify(str) {
     .replace(/-$/, "");
 }
 
-function generateToc(source, title) {
+function generateToc(source, title, maxDepth) {
   var toc = "";
   var renderer = new marked.Renderer();
   function addToToc(text, anchor, level) {
-    if (level === 1) return;
+    if (level === 1 || maxDepth && level > maxDepth + 1) return;
     const spaces = new Array(level * 3 - 3).map(x => x).join(" ");
     toc += `${spaces}- [${text}](#${anchor})\n`;
   }
@@ -33,13 +33,13 @@ function generateToc(source, title) {
   return toc;
 }
 
-function transform(source, title) {
+function transform(source, title, maxDepth) {
   var tocPattern = new RegExp(`## ${title}([\\s\\S])+\\n---`);
   if (!tocPattern.test(source)) {
     console.error("Couldn't find expected TOC pattern: " + tocPattern);
     process.exit(1);
   }
-  var toc = generateToc(source, title);
+  var toc = generateToc(source, title, maxDepth);
   return source.replace(tocPattern, `## ${title}\n\n${toc}\n---`);
 }
 
@@ -47,8 +47,8 @@ function readFile(file) {
   return fs.readFileSync(file).toString();
 }
 
-function updateFile(file, title) {
-  fs.writeFileSync(file, transform(readFile(file), title));
+function updateFile(file, title, maxDepth) {
+  fs.writeFileSync(file, transform(readFile(file), title, maxDepth));
 }
 
 var argv = yargs
@@ -66,12 +66,17 @@ var argv = yargs
     describe: "The TOC title to use.",
     default: "Table of Contents",
   })
+  .option("d", {
+    alias: "max-depth",
+    describe: "The max document tree depth to generate the TOC for (0 = all).",
+    default: 0,
+  })
   .argv;
 
 var file = argv._[0];
 if (argv.write) {
-  updateFile(file, argv.title);
+  updateFile(file, argv.title, argv.maxDepth);
   console.log("Updated " + file);
 } else {
-  console.log(transform(readFile(file), argv.title));
+  console.log(transform(readFile(file), argv.title, argv.maxDepth));
 }
