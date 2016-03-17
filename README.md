@@ -11,6 +11,7 @@ Generates and maintain a Table of Content for any Markdown document, especially 
   - [Setup](#setup)
   - [Usage](#usage)
      - [Custom TOC heading](#custom-toc-heading)
+     - [For the adventurous](#for-the-adventurous)
   - [License](#license)
 
 ---
@@ -64,6 +65,16 @@ $ toctoc -w README.md -t="My custom TOC title"
 ```
 
 Just ensure to update your source file to use this new heading, so the executable can find and replace the appropriate TOC section.
+
+### For the adventurous
+
+It's possible to automate updating the README in a `package.json` `prepublish` command, so you're sure your npm package homepage is always updated with the right TOC when released:
+
+```json
+  "scripts": {
+    "prepublish": "./node_modules/.bin/toctoc README.md -w"
+  },
+```
 
 ## License
 
