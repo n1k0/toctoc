@@ -27,7 +27,6 @@ function generateToc(source, title, maxDepth) {
   }
   renderer.heading = function (text, level) {
     if (text === title) return;
-    console.log(removeTags(text), slugify(text));
     addToToc(removeTags(text), slugify(text), level);
     return "";
   }
