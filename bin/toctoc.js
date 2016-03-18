@@ -10,6 +10,8 @@ function removeTags(str) {
 
 function slugify(str) {
   return removeTags(str.toLowerCase())
+    // remove html entities
+    .replace(/&\w+;/g, "")
     // generate a github compatible anchor slug
     .replace(/[^\w]+/g, "-")
     // remove trailing escaped characters
