@@ -57,6 +57,13 @@ $ toctoc -w README.md
 
 If a TOC was previously generated for this file, its previous version will be replaced with the new one.
 
+```
+$ toctoc docs/**/*.md 
+```
+
+You can use a [glob](http://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html) pattern to match multiple files at once.
+
+
 ### Custom TOC heading
 
 By default the TOC is generated using the `Table of Contents` heading. You can specify a custom one by using the `-t` option:
@@ -74,6 +81,17 @@ By default, the generated TOC will expose links to the deepest subsections of th
 ```
 $ toctoc -w README.md -d 2
 ```
+
+
+### Soft TOC
+
+By default, toctoc will fail with an error if the targeted file(s) do not have any TOC. To remove this limitation, use `-s` option:
+
+
+```
+$ toctoc -w docs/**/*.md -s
+```
+
 
 ### For the adventurous
 
