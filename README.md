@@ -12,6 +12,7 @@ Generates and maintain a Table of Content for any Markdown document, especially 
   - [Usage](#usage)
      - [Custom TOC heading](#custom-toc-heading)
      - [Max TOC depth](#max-toc-depth)
+     - [Soft TOC](#soft-toc)
      - [For the adventurous](#for-the-adventurous)
   - [License](#license)
 
@@ -52,16 +53,22 @@ $ toctoc README.md
 By default, this command outputs the modified file contents with the TOC markdown added. You can overwrite the original file by using the `-w` option:
 
 ```
-$ toctoc -w README.md
+$ toctoc README.md -w
 ```
 
 If a TOC was previously generated for this file, its previous version will be replaced with the new one.
 
 ```
-$ toctoc docs/**/*.md 
+$ toctoc docs/**/*.md -w 
 ```
 
-You can use a [glob](http://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html) pattern to match multiple files at once.
+You can use a [glob](http://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html) pattern or a directory to match multiple files at once.
+
+```
+$ toctoc doc -w -e MD
+```
+
+If you use a directory, the file extensions searched is `.md`, if you wish to use a different file extension for markdown, use `-e` option. 
 
 
 ### Custom TOC heading
@@ -79,17 +86,24 @@ Just ensure to update your source file to use this new heading, so the executabl
 By default, the generated TOC will expose links to the deepest subsections of the document; to limit the maximum crawling depth, use the `-d` option:
 
 ```
-$ toctoc -w README.md -d 2
+$ toctoc README.md -w -d 2
 ```
-
 
 ### Soft TOC
 
-By default, toctoc will fail with an error if the targeted file(s) do not have any TOC. To remove this limitation, use `-s` option:
+By default, it will fail with an error if the targeted file(s) do not have any TOC. To remove this limitation, use `-s` option:
+
+```
+$ toctoc docs/**/*.md -w -s
+```
+
+### Directory 
+
+By default, toctoc will use a `.md` extension if used with a directory. You can customise the extension to be founds by passing `-e` option.
 
 
 ```
-$ toctoc -w docs/**/*.md -s
+$ toctoc docs -w -s -e .MD
 ```
 
 
