@@ -90,7 +90,7 @@ var argv = yargs
 
 var pattern = argv._[0];
 
-const options = {
+var options = {
   nonull: true,
 };
 
