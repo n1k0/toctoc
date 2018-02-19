@@ -99,7 +99,7 @@ try {
     pattern = `${pattern}/**/*${argv.extension}`;
   }
 } catch (e) {
-  console.error(`Couldn't find expected TOC pattern: ${pattern}`);
+  console.error(`Couldn't find: ${pattern}`);
   process.exit(1);
 }
 
