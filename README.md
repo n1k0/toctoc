@@ -13,6 +13,7 @@ Generates and maintain a Table of Content for any Markdown document, especially 
      - [Custom TOC heading](#custom-toc-heading)
      - [Max TOC depth](#max-toc-depth)
      - [Soft TOC](#soft-toc)
+     - [Directory](#directory)
      - [For the adventurous](#for-the-adventurous)
   - [License](#license)
 
