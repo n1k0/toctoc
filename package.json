@@ -1,6 +1,6 @@
 {
   "name": "toctoc",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Generates and maintain a table of contents of your README.md.",
   "main": "index.js",
   "scripts": {
