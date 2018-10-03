@@ -39,7 +39,7 @@ function generateToc(source, title, maxDepth) {
 }
 
 function transform(source, title, maxDepth, soft) {
-  var tocPattern = new RegExp(`## ${title}([\\s\\S])+\\n---`);
+  var tocPattern = new RegExp(`## ${title}([\\s\\S])+\\n---\\n`);
   if (!tocPattern.test(source) && !soft) {
     console.error(`Couldn't find expected TOC pattern: ${tocPattern}`);
     process.exit(1);
