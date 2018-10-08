@@ -18,7 +18,6 @@ Generates and maintain a Table of Content for any Markdown document, especially 
   - [License](#license)
 
 ---
-
 ## Installation
 
 ### Globally

@@ -45,7 +45,7 @@ function transform(source, title, maxDepth, soft) {
     process.exit(1);
   }
   var toc = generateToc(source, title, maxDepth);
-  return source.replace(tocPattern, `## ${title}\n\n${toc}\n---`);
+  return source.replace(tocPattern, `## ${title}\n\n${toc}\n---\n`);
 }
 
 function readFile(file) {
