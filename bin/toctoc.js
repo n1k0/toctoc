@@ -15,7 +15,7 @@ function slugify(str) {
     // remove html entities
     .replace(/&\w+;/g, "")
     // generate a github compatible anchor slug
-    .replace(/[^\w]+/g, "-")
+    .replace(/[ $&+,:;=?@#|'<>.^*()%!-]+/g, "-")
     // remove trailing escaped characters
     .replace(/^-/, "")
     .replace(/-$/, "");
