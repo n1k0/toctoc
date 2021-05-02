@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { slugify } from "transliteration";
+import removeAccents from "remove-accents";
 import yargs from "yargs";
 import fs from "fs";
 import marked from "marked";
@@ -21,7 +22,7 @@ function generateToc(source, title, maxDepth) {
   }
   renderer.heading = function (text, level) {
     if (text === title) return;
-    addToToc(removeTags(text), slugify(text), level);
+    addToToc(removeTags(text), removeAccents(slugify(text)), level);
     return "";
   };
   marked(source, { renderer });
