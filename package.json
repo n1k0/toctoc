@@ -2,7 +2,7 @@
   "name": "toctoc",
   "version": "0.3.2",
   "description": "Generates and maintain a table of contents of your README.md.",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "update-toc": "node ./bin/toctoc README.md -w",
     "prepublish": "npm run update-toc",
@@ -31,6 +31,7 @@
     "glob": "^7.1.2",
     "is-glob": "^4.0.0",
     "marked": "^0.3.9",
+    "transliteration": "^2.2.0",
     "yargs": "^4.3.1"
   }
 }

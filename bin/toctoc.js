@@ -1,50 +1,40 @@
 #!/usr/bin/env node
 
-var yargs = require("yargs");
-var fs = require("fs");
-var marked = require("marked");
-var glob = require("glob");
-var isGlob = require("is-glob");
+import { slugify } from "transliteration";
+import yargs from "yargs";
+import fs from "fs";
+import marked from "marked";
+import glob from "glob";
+import isGlob from "is-glob";
 
 function removeTags(str) {
   return str.replace(/(<([^>]+)>)/g, "");
 }
 
-function slugify(str) {
-  return removeTags(str.toLowerCase())
-    // remove html entities
-    .replace(/&\w+;/g, "")
-    // generate a github compatible anchor slug
-    .replace(/[^\w]+/g, "-")
-    // remove trailing escaped characters
-    .replace(/^-/, "")
-    .replace(/-$/, "");
-}
-
 function generateToc(source, title, maxDepth) {
-  var toc = "";
-  var renderer = new marked.Renderer();
+  let toc = "";
+  let renderer = new marked.Renderer();
   function addToToc(text, anchor, level) {
-    if (level === 1 || maxDepth && level > maxDepth + 1) return;
-    const spaces = new Array(level * 3 - 3).map(x => x).join(" ");
+    if (level === 1 || (maxDepth && level > maxDepth + 1)) return;
+    const spaces = new Array(level * 3 - 3).map((x) => x).join(" ");
     toc += `${spaces}- [${text}](#${anchor})\n`;
   }
   renderer.heading = function (text, level) {
     if (text === title) return;
     addToToc(removeTags(text), slugify(text), level);
     return "";
-  }
-  marked(source, {renderer});
+  };
+  marked(source, { renderer });
   return toc;
 }
 
 function transform(source, title, maxDepth, soft) {
-  var tocPattern = new RegExp(`## ${title}([\\s\\S])+\\n---\\n`);
+  const tocPattern = new RegExp(`## ${title}([\\s\\S])+\\n---\\n`);
   if (!tocPattern.test(source) && !soft) {
     console.error(`Couldn't find expected TOC pattern: ${tocPattern}`);
     process.exit(1);
   }
-  var toc = generateToc(source, title, maxDepth);
+  const toc = generateToc(source, title, maxDepth);
   return source.replace(tocPattern, `## ${title}\n\n${toc}\n---\n`);
 }
 
@@ -64,7 +54,7 @@ var argv = yargs
   .option("w", {
     alias: "write",
     describe: "Write TOC contents into the file.",
-    default: false
+    default: false,
   })
   .option("t", {
     alias: "title",
@@ -85,12 +75,11 @@ var argv = yargs
     alias: "extension",
     describe: "Default file extension used when scanning a directory.",
     default: ".md",
-  })
-  .argv;
+  }).argv;
 
-var pattern = argv._[0];
+let pattern = argv._[0];
 
-var options = {
+const options = {
   nonull: true,
 };
 
